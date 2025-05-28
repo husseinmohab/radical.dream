@@ -1,3 +1,4 @@
+import os
 from unittest import TestCase
 from hydraa.services.caas_manager.local_caas import LocalCaas 
 
@@ -25,6 +26,10 @@ class Profiler:
 class LocalCaaSTestClass(TestCase):
         def test_init(self):
                 sandbox = 'test_sandbox'
+
+                if not os.path.exists(sandbox):
+                        os.mkdir(sandbox)
+
                 manager_id = 'mgr123'
                 cred = {'auth_url': 'http://fake', 'username': 'user', 'password': 'pass'}
                 VMS = [VM()]

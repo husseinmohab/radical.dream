@@ -1,3 +1,5 @@
-hydra
-radical.pilot
 psutil
+pytest
+requests
+radical.utils
+openstacksdk

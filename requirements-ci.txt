@@ -1,6 +1,7 @@
 psutil
 pytest
 requests
+radical.pilot
 radical.utils
 openstacksdk
 -e .

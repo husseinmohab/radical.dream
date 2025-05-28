@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    - cron:  '45 6 * * *'
+
+jobs:
+  tests:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        python-version: [ '3.8', '3.9', '3.10', '3.11', '3.12' ]
+    runs-on: ${{ matrix.os }}
+
+    continue-on-error: true
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m venv testenv
+          . testenv/bin/activate
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install -r requirements-ci.txt
+      - name: Unit tests
+        run: |
+          . testenv/bin/activate
+           pytest -v tests/
+
+
+
+
+
+

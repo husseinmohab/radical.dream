@@ -1,40 +1,47 @@
 name: CI
 
 on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
+  push:          # triggers on all pushes to any branch
+  pull_request:  # triggers on all PRs to any branch
   schedule:
-    - cron:  '45 6 * * *'
+    - cron: '45 6 * * *'
 
 jobs:
   tests:
     strategy:
       matrix:
-        os: [ ubuntu-latest ]
-        python-version: [ '3.8', '3.9', '3.10', '3.11', '3.12' ]
+        os: [ubuntu-latest]
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
     runs-on: ${{ matrix.os }}
-
-    continue-on-error: true
-    
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2
+
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements-ci.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
       - name: Install dependencies
         run: |
           python -m venv testenv
           . testenv/bin/activate
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install -r requirements-ci.txt
-      - name: Unit tests
+
+      - name: Run Unit tests
         run: |
           . testenv/bin/activate
-           pytest -v tests/
+          pytest -v tests/
+
 
 
 

@@ -32,7 +32,7 @@ jobs:
       - name: Run Unit tests
         run: |
           . testenv/bin/activate
-          pytest -v test_local_caas.py test_manager.py
+          pytest -v /hydraa/services/caas_manager/test_local_caas.py /hydraa/services/caas_manager/test_manager.py
 
 
 

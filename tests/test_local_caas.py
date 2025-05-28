@@ -1,19 +1,6 @@
 from unittest import TestCase
 from hydraa.services.caas_manager.local_caas import LocalCaas 
 
-class LocalCaaSTestClass(TestCase):
-        def test_init(self):
-                sandbox = 'test_sandbox'
-                manager_id = 'mgr123'
-                cred = {'auth_url': 'http://fake', 'username': 'user', 'password': 'pass'}
-                VMS = [VM()]
-                asynchronous = False
-                auto_terminate = False
-                log = Logger()
-                prof = Profiler
-                obj = LocalCaas(sandbox, manager_id, cred, VMS, asynchronous, auto_terminate, log, prof)
-                self.assertIsNotNone(obj)
-
 class VM:
         def __init__(self):
                 self.LaunchType = 'testlaunch'
@@ -35,3 +22,15 @@ class Profiler:
         def prof(self, *args, **kwargs):
                 pass
 
+class LocalCaaSTestClass(TestCase):
+        def test_init(self):
+                sandbox = 'test_sandbox'
+                manager_id = 'mgr123'
+                cred = {'auth_url': 'http://fake', 'username': 'user', 'password': 'pass'}
+                VMS = [VM()]
+                asynchronous = False
+                auto_terminate = False
+                log = Logger()
+                prof = Profiler
+                obj = LocalCaas(sandbox, manager_id, cred, VMS, asynchronous, auto_terminate, log, prof)
+                self.assertIsNotNone(obj)

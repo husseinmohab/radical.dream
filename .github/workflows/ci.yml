@@ -28,6 +28,7 @@ jobs:
           . testenv/bin/activate
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install -r requirements-ci.txt
+          python -m pip install .
 
       - name: Run Unit tests
         run: |

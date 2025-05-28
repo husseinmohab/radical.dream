@@ -1,9 +1,3 @@
-psutil
+-r requirements.txt
 pytest
-requests
-radical.pilot
-radical.utils
-python-blazarclient
-lexicon
-openstacksdk
--e .
+

@@ -3,6 +3,6 @@ pytest
 requests
 radical.pilot
 radical.utils
-blazarclient.exception
+python-blazarclient
 openstacksdk
 -e .

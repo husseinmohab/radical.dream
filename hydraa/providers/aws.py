@@ -14,7 +14,7 @@ from src.provider_proxy.proxy import proxy
 from libcloud.storage.types import Provider
 from libcloud.storage.providers import get_driver
 
-class AWS(object):
+class AWS(object): # because of python 2?
     def __init__(self, proxy_mgr: proxy):
 
         if proxy:

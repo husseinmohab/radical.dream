@@ -1,13 +1,16 @@
-from hydraa.services import CaasManager
+from hydraa.services import CaasManager, ServiceManager
 from hydraa import proxy, LocalVM, Task, LOCAL
 
 provider_mgr = proxy([LOCAL])
 
 # Joining a `microk8s`` requires to set `KubeConfigPath`` in the LocalVM.
 # For other clusters Hydraa should be able to pick it up automatically.
-vm = LocalVM(launch_type='join')
+vm = LocalVM(launch_type='join', KubeConfigPath='/Users/monoble/.kube/config')
 
 caas_mgr = CaasManager(provider_mgr, [vm], asynchronous=False, auto_terminate=True)
+
+service_mgr = ServiceManager([caas_mgr])
+service_mgr.start_services()
 
 @caas_mgr
 def multiply(x, y):
@@ -16,7 +19,6 @@ def multiply(x, y):
                 cmd=['python', '-c', f'print({x} * {y})'])
 
     return task
-
 
 task = multiply(x=100, y=1200)
 task.result()

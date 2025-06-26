@@ -6,7 +6,7 @@ provider_mgr = proxy([LOCAL])
 
 # Joining a `microk8s`` requires to set `KubeConfigPath`` in the LocalVM.
 # For other clusters Hydraa should be able to pick it up automatically.
-vm = LocalVM(launch_type='join', KubeConfigPath='/Users/monoble/.kube/config')
+vm = LocalVM(launch_type='join')
 
 caas_mgr = CaasManager(provider_mgr, [vm], asynchronous=False, auto_terminate=True)
 

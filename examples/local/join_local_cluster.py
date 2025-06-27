@@ -22,8 +22,4 @@ def multiply(x, y):
     return task
 
 task = multiply(x=100, y=1200)
-print(task.result())
-
-
-# cleanup pod after run to avoid kubernetes.utils.create_from_yaml.FailToCreateError
-subprocess.run(['kubectl', 'delete', 'pod', 'hydraa-pod-000001']) 
+task.result()
